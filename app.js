@@ -21,10 +21,9 @@ app.use(express.json());
 
 app.use(express.static(pathStatic));
 app.set('view engine', 'ejs');
+const productsRoutes = require('./routers/productsRoutes');
+app.use('/' ,productsRoutes);
 
-app.get('/',(req,res)=>{
-    res.render("index")
-})
 
 httpServer.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`)
