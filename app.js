@@ -17,6 +17,7 @@ const pathStatic = path.resolve(__dirname, "./public");
 app.use(express.urlencoded({extended:false}));
 
 app.use(express.json());
+app.set('socketio',io);
 
 
 app.use(express.static(pathStatic));
@@ -33,3 +34,4 @@ httpServer.listen(PORT, () => {
     console.log('Usuario conectado', socket.id)
     
   })
+ 

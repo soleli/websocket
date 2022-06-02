@@ -48,12 +48,26 @@ productForm.addEventListener('submit',(e)=>{
   })
   .then(response => response.json())
   .then(data => {
-    message.innerHTML = 'Producto creado correctamente'
+   
+   message.innerHTML = 'Producto creado correctamente'
     title.value = ''
     price.value = ''
     image.value = ''
+
   })
   .catch(e => console.error(e))
   
   console.log(product)
 })
+
+socket.on('newProduct', data => {
+    const containerProduct = document.getElementById('containerProduct')
+      containerProduct.innerHTML += `
+      <tr>
+      <th scope="row">${data.id}</th>
+      <td>${data.title}</td>
+      <td>${data.price}</td>
+      <td><img src="${data.image}" width="100px" /></td>
+    </tr>
+      `
+    })
