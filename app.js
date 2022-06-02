@@ -17,9 +17,10 @@ app.use(express.json());
 
 
 app.use(express.static(pathStatic));
+app.set('view engine', 'ejs');
 
 app.get('/',(req,res)=>{
-    res.send("hola mundo")
+    res.render("index")
 })
 
 app
