@@ -24,6 +24,8 @@ app.use(express.static(pathStatic));
 app.set('view engine', 'ejs');
 const productsRoutes = require('./routers/productsRoutes');
 app.use('/' ,productsRoutes);
+const messageRoutes = require('./routers/messageRoutes');
+app.use('/message' ,messageRoutes);
 
 
 httpServer.listen(PORT, () => {

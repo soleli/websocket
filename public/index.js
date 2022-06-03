@@ -60,6 +60,37 @@ productForm.addEventListener('submit',(e)=>{
   console.log(product)
 })
 
+messageForm.addEventListener('submit',(e)=>{
+  e.preventDefault();
+  const email = document.getElementById('email')
+  const mensaje = document.getElementById('mensaje')
+  const now = new Date();
+  const msg = {
+    email: email.value,
+    mensaje: mensaje.value,
+    fecha: `${now.getHours()}:${now.getMinutes()}`
+  }
+  console.log(msg)
+  fetch('http://localhost:8080/message/create', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(msg)
+})
+.then(response => response.json())
+.then(data => {
+
+  email.value = ''
+  mensaje.value = ''
+
+
+})
+.catch(e => console.error(e))
+
+console.log(msg)
+})
+
 socket.on('newProduct', data => {
     const containerProduct = document.getElementById('containerProduct')
       containerProduct.innerHTML += `
@@ -71,3 +102,19 @@ socket.on('newProduct', data => {
     </tr>
       `
     })
+
+socket.on('newMessage', data=>{
+  const containerMesagge = document.getElementById('chat-content')
+  containerMesagge.innerHTML += `
+  <div class="media media-chat">
+                            <img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png"
+                                alt="...">
+                            <div class="media-body">
+                              <span>${data.email}</span>
+                                <p>${data.mensaje}</p>
+                                <p class="meta"><time datetime="2018">${data.fecha}</time></p>
+                            </div>
+                        </div>
+  `
+  
+})
